@@ -39,17 +39,20 @@ def download_unit_test_suite(exercise_id: str, test_id: str) -> dict[str, any]:
 def cmp(expected: any, actual: any, message):
     def dump(value: str, indent=0) -> str:
         if type(value) in {str, int, float}:
-            return " " * indent + value
+            return " " * indent + str(value)
         elif type(value) == list:
             if type(value[0]) in {str, int, float}:
-                return " " * indent + value
+                return " " * indent + str(value)
             else:
                 buffer = []
                 for i in range(len(value)):
                     buffer.append(f"{i}. {value[i]}")
                 return "\n".join(buffer)
+        else:
+            return " " * indent + str(value)
 
     assert expected == actual, f"""
+    
 WHEN {message}
     
 EXPECTED:
